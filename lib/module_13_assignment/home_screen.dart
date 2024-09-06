@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_assignments/module_13_assignment/plus_minus_button.dart';
 import 'package:flutter_assignments/module_13_assignment/product.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -30,24 +31,19 @@ class _HomeScreenState extends State<HomeScreen> {
         image: 'https://picsum.photos/503/503'),
   ];
 
-  int totalAmount = 0;
+  double totalAmount = 0;
 
-  void increment(Product product) {
-    setState(() {
-      product.quantity++;
-    });
-  }
-
-  void decrement(Product product) {
-    if (product.quantity > 0) {
-      setState(() {
-        product.quantity--;
-      });
+  @override
+  void initState() {
+    super.initState();
+    for (Product product in products) {
+      totalAmount += product.price * product.quantity;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // calculateTotalAmount();
     return Scaffold(
       appBar: AppBar(
         title: const Text("My Bag"),
@@ -61,7 +57,6 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ListView.separated(
                 itemBuilder: (BuildContext context, int index) {
                   Product product = products[index];
-
                   return ListTile(
                     // Add T-shirt image here
                     leading: Image(
@@ -86,9 +81,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Row(
                           children: [
-                            _buildPlusMinusButton(
+                            PlusMinusButton(
                               icon: const Icon(Icons.remove),
-                              function: ()=> decrement(product),
+                              function: () => decrement(product),
                             ),
                             const SizedBox(
                               width: 16,
@@ -97,9 +92,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             const SizedBox(
                               width: 16,
                             ),
-                            _buildPlusMinusButton(
+                            PlusMinusButton(
                               icon: const Icon(Icons.add),
-                              function: ()=>increment(product),
+                              function: () => increment(product),
                             ),
                           ],
                         )
@@ -134,24 +129,28 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
             // Add total price here
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Total amount:",
                   style: TextStyle(
                     fontSize: 16,
                   ),
                 ),
                 Text(
-                  "20\$",
-                  style: TextStyle(
+                  "${totalAmount.toString()}\$",
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
                 ),
               ],
             ),
+            const SizedBox(
+              height: 20,
+            ),
+
             // check out full with red button
             SizedBox(
               width: double.infinity,
@@ -175,23 +174,20 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildPlusMinusButton({
-    required Icon icon,
-    required VoidCallback function,
-  }) {
+  void increment(Product product) {
+    setState(() {
+      product.quantity++;
+      totalAmount += product.price;
+    });
+  }
 
-    return Material(
-      // shadow
-      elevation: 4.0,
-      shape: const CircleBorder(),
-      child: CircleAvatar(
-        // shadow
-        backgroundColor: Colors.white,
-        child: IconButton(
-          onPressed: function,
-          icon: icon,
-        ),
-      ),
-    );
+  void decrement(Product product) {
+    if (product.quantity > 0) {
+      setState(() {
+        product.quantity--;
+        totalAmount -= product.price;
+      });
+    }
   }
 }
+
