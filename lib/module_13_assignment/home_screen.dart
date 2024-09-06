@@ -46,8 +46,14 @@ class _HomeScreenState extends State<HomeScreen> {
     // calculateTotalAmount();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My Bag"),
-        centerTitle: true,
+        title: const Text(
+          "My Bag",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 34,
+          ),
+        ),
+        elevation: 10.0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -158,7 +164,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  // Show a snack bar here
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Congratulations! You have checked out."),
+                    ),
+                  );
+                },
                 child: const Text(
                   "Check Out",
                   style: TextStyle(
@@ -190,4 +203,3 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 }
-
