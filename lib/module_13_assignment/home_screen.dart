@@ -16,19 +16,22 @@ class _HomeScreenState extends State<HomeScreen> {
         price: 51,
         color: "Black",
         size: "L",
-        image: 'https://picsum.photos/503/503'),
+        image:
+            'https://cdn.pixabay.com/photo/2016/11/23/06/57/isolated-t-shirt-1852114_960_720.png'),
     Product(
         name: "T-Shirt",
         price: 30,
-        color: "Gray",
+        color: "Red",
         size: "L",
-        image: 'https://picsum.photos/503/503'),
+        image:
+            'https://cdn.pixabay.com/photo/2016/12/06/09/31/blank-1886008_1280.png'),
     Product(
         name: "Sport-dress",
         price: 43,
         color: "Black",
         size: "M",
-        image: 'https://picsum.photos/503/503'),
+        image:
+            'https://cdn.pixabay.com/photo/2016/08/15/19/57/red-devils-1596355_960_720.jpg'),
   ];
 
   double totalAmount = 0;
@@ -61,76 +64,85 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Expanded(
               child: ListView.separated(
+                itemCount: products.length,
+                separatorBuilder: (BuildContext context, int index) {
+                  return const SizedBox(
+                    height: 16,
+                  );
+                },
                 itemBuilder: (BuildContext context, int index) {
                   Product product = products[index];
-                  return ListTile(
-                    // Add T-shirt image here
-                    leading: Image(
-                      image: NetworkImage(product.image),
-                    ),
-                    title: Text(product.name),
-                    subtitle: Column(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text("Color: ${product.color}"),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text("Size: ${product.size}"),
-                          ],
+                  return Material(
+                    elevation: 10,
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 12,
+                        horizontal: 8,
+                      ),
+                      // Add T-shirt image here
+                      leading: Image(
+                        image: NetworkImage(
+                          product.image,
                         ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        Row(
-                          children: [
-                            PlusMinusButton(
-                              icon: const Icon(Icons.remove),
-                              function: () => decrement(product),
-                            ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            Text(product.quantity.toString()),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            PlusMinusButton(
-                              icon: const Icon(Icons.add),
-                              function: () => increment(product),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                    trailing: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Icon(
-                          Icons.more_vert,
-                          color: Colors.grey,
-                          weight: 5,
-                        ),
-                        Text(
-                          "${product.price}\$",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                      ),
+                      title: Text(product.name),
+                      subtitle: Column(
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            // mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text("Color: ${product.color}"),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text("Size: ${product.size}"),
+                            ],
                           ),
-                        ),
-                      ],
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          Row(
+                            children: [
+                              PlusMinusButton(
+                                icon: const Icon(Icons.remove),
+                                function: () => decrement(product),
+                              ),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              Text(product.quantity.toString()),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              PlusMinusButton(
+                                icon: const Icon(Icons.add),
+                                function: () => increment(product),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      trailing: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Icon(
+                            Icons.more_vert,
+                            color: Colors.grey,
+                            weight: 5,
+                          ),
+                          Text(
+                            "${product.price}\$",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
-                separatorBuilder: (BuildContext context, int index) {
-                  return const Divider(
-                    height: 1,
-                  );
-                },
-                itemCount: products.length,
               ),
             ),
 
