@@ -1,27 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_assignments/model/product.dart';
+import 'package:flutter_assignments/screens/update_product_screen.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
-    super.key,
+    super.key, required this.data,
   });
+
+  final Product data;
 
   @override
   Widget build(BuildContext context) {
+
     return ListTile(
-      title: const Text("Product name"),
+      title:  Text(data.productName),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("Product code"),
-          const Text("Product unit price"),
-          const Text("Product quantity"),
-          const Text("Total price"),
+           Text("code: ${data.productCode}"),
+           Text("Price: \$${data.unitPrice.toString()}"),
+           Text("Quantity: ${data.qty}"),
+           Text("Total price: \$${data.totalPrice.toString()}"),
           const Divider(),
           OverflowBar(
             alignment: MainAxisAlignment.end,
             children: [
               TextButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const UpdateProductScreen()));
+                },
                 label: const Text("Edit"),
                 icon: const Icon(Icons.edit),
               ),
