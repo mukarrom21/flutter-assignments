@@ -11,15 +11,10 @@ class UpdateProductScreen extends StatefulWidget {
 
 class _UpdateProductScreenState extends State<UpdateProductScreen> {
   final TextEditingController _productNameTEC = TextEditingController();
-
   final TextEditingController _productImageTEC = TextEditingController();
-
   final TextEditingController _productCodeTEC = TextEditingController();
-
   final TextEditingController _unitPriceTEC = TextEditingController();
-
   final TextEditingController _quantityTEC = TextEditingController();
-
   final TextEditingController _totalPriceTEC = TextEditingController();
 
   @override

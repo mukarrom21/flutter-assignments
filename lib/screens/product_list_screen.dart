@@ -28,6 +28,13 @@ class _ProductListScreenState extends State<ProductListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Product List"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                getProducts();
+              },
+              icon: const Icon(Icons.refresh))
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -38,17 +45,21 @@ class _ProductListScreenState extends State<ProductListScreen> {
         },
         child: const Icon(Icons.add),
       ),
-      body: isLoading ? const Center(child: CircularProgressIndicator(),) : ListView.separated(
-        itemBuilder: (context, index) {
-          return ProductItem(data: products[index]);
-        },
-        separatorBuilder: (context, index) {
-          return const SizedBox(
-            height: 10,
-          );
-        },
-        itemCount: products.length,
-      ),
+      body: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.separated(
+              itemBuilder: (context, index) {
+                return ProductItem(data: products[index]);
+              },
+              separatorBuilder: (context, index) {
+                return const SizedBox(
+                  height: 10,
+                );
+              },
+              itemCount: products.length,
+            ),
     );
   }
 

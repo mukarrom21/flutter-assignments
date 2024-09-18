@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignments/model/product.dart';
 import 'package:flutter_assignments/screens/update_product_screen.dart';
+import 'package:http/http.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
@@ -33,7 +34,7 @@ class ProductItem extends StatelessWidget {
                 icon: const Icon(Icons.edit),
               ),
               TextButton.icon(
-                onPressed: () {},
+                onPressed: _onClickDelete,
                 label: const Text(
                   "Delete",
                   style: TextStyle(
@@ -48,5 +49,13 @@ class ProductItem extends StatelessWidget {
       ),
       // trailing: Text("data"),
     );
+  }
+
+  Future<void> _onClickDelete() async {
+    Uri uri = Uri.parse("http://164.68.107.70:6060/api/v1/DeleteProduct/${data.id}");
+    Response response = await get(uri);
+    if (response.statusCode == 200) {
+      print(response.body);
+    }
   }
 }

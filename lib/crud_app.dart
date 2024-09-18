@@ -6,8 +6,14 @@ class CrudApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: ProductListScreen(),
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xffe3c9bf),
+        )
+      ),
+      home: const ProductListScreen(),
     );
   }
 }

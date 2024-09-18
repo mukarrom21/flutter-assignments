@@ -14,6 +14,12 @@ class InputWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter $label';
+        }
+        return null;
+      },
       decoration: InputDecoration(
         hintText: label,
         // border: const OutlineInputBorder(),
