@@ -51,7 +51,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
             )
           : ListView.separated(
               itemBuilder: (context, index) {
-                return ProductItem(data: products[index]);
+                return ProductItem(data: products[index], refresh: getProducts);
               },
               separatorBuilder: (context, index) {
                 return const SizedBox(
